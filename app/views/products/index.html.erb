@@ -14,11 +14,11 @@
        </div>
       <%end%>
      </div>
-     <% if current_user.role.eql?('admin')%>
   	<div class="text-right attendee-cent-s form-group">
+     <% if current_user.role.eql?('admin')%>
       	<%= link_to "Add Product", new_product_path, :class => "btn btn-default btn-green" %>
-     </div>
     <%end%>
+     </div>
    <div class="box box-info">
    <%if @products.present?%>
    	<% @products.each do |product|%>
