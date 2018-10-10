@@ -1,0 +1,147 @@
+<div class="content-wrapper">
+  <section class="main-block">
+    <div class="container">
+      <div class="row">
+        <div class="tab-content">
+  				<div class="tab-pane fade active in" id="default-tab-1">
+  					<div class="tab-pane">
+  							<%= nested_form_for @product,url: products_path, method: :post,html: {id: "new_product"} do |f|%>
+  								<div class="detail-form m-t-40 m-b-40">
+                
+			                    <div class="form-group">
+									<div class="row">
+										<label class="col-sm-4 col-md-3 control-label">Product Name</label>
+										<div class="col-sm-8 col-md-7">
+										  <%= f.text_field :name, class: "form-control", required: true, placeholder: ""%>
+										</div>
+									</div>
+								</div>
+	                    <div class="form-group">
+	  						<div class="row">
+	  						<label class="col-sm-4 col-md-3 control-label">Product Images</label>
+	                        <div class="col-sm-8 col-md-7">
+	                          <%= f.fields_for :images do |a| %>
+	                            <div class="form-group">
+	                              <div class="row">
+	                                <div class="col-sm-8 col-md-7">
+	                                  <% if a.present?%>
+	                                  <div class="form-group">
+	                                    <div class="col-sm-12 center">
+	                                      <div class="clearfix">
+	                                        <div class="uploadimg">
+	                                          <% begin %>
+	                                            <%= image_tag(a.object.try(:file_url), class:"fileinput-preview thumbnail", id: 'sub_cat_scnd_img', width: 200, height: 150)%>
+	                                          <% rescue %>
+	                                            <img src="/assets/1.png" class="fileinput-preview thumbnail" id= "black_cat_img" alt="" width="200px" height="150px">
+	                                          <% end %>
+	                                        </div>
+	                                        <div class="fileUpload btn btn-pri choose-file">
+	                                          <%= a.file_field :file,class:"btn btn-pri btn-blue btn-file upload sub_category_image", data: { preview_element_id: 'sub_cat_scnd_img', preview_element_type: 'id'},id: "product-img" %>
+	                                        </div>
+	                                      </div>
+	                                    </div>
+	                                  </div>
+	                                  <%else%>
+	                                  <div class="form-group">
+	                                    <div class="col-sm-12 center">
+	                                      <div class="clearfix">
+	                                        <div class="uploadimg">
+
+	                                          <img src="/assets/1.png" class="fileinput-preview thumbnail" id= "black_cat_img" alt="" width="200px" height="150px">
+	                                        </div>
+	                                        <div class="fileUpload btn btn-pri choose-file">
+	                                          <%= a.file_field :file,class:"btn btn-pri btn-blue btn-file upload sub_category_image",id: "product-img", required: true %>
+	                                        </div>
+	                                      </div>
+	                                    </div>
+	                                  </div>
+	                                  <%end%>
+	                                </div>
+	                              </div>
+	                                <%= a.link_to_remove '<i class="fa fa-trash-o"></i>'.html_safe, class: "view pull-right" %>
+	                            </div>
+	                          <% end %>
+	                          <p><%= f.link_to_add "Add Image", :images, class: "btn btn-default btn-green" %></p>
+								</div>
+							</div>
+						</div>
+	                    <div class="form-group">
+							<div class="row">
+								<label class="col-sm-4 col-md-3 control-label">Product Price</label>
+								<div class="col-sm-8 col-md-7">
+								  <%= f.text_field :price, class: "form-control", required: true, placeholder: ""%>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+	  						<div class="row">
+	  						<label class="col-sm-4 col-md-3 control-label">Product Tags</label>
+	                        <div class="col-sm-8 col-md-7">
+	                          <%= f.fields_for :product_tags do |a| %>
+	                            <div class="form-group">
+	                              <div class="row">
+	                                <div class="col-sm-8 col-md-7">
+	                                  <% if a.present?%>
+	                                  <div class="form-group">
+	                                    <div class="col-sm-12 center">
+	                                      <div class="clearfix">
+	                                        <%= a.select :tag_id,Tag.order("name asc").collect{ |p| [p.name,p.id]},{prompt: 'Please Select tag'}, class: "form-control", placeholder: ""  %>
+	                                      </div>
+	                                    </div>
+	                                  </div>
+	                                  <%end%>
+	                                </div>
+	                              </div>
+	                                <%= a.link_to_remove '<i class="fa fa-trash-o"></i>'.html_safe, class: "view pull-right" %>
+	                            </div>
+	                          <% end %>
+	                          <p><%= f.link_to_add "Add Image", :product_tags, class: "btn btn-default btn-green" %></p>
+								</div>
+							</div>
+						</div>
+	                    <div class="form-group">
+	                      <div class="row">
+	                        <label class="col-sm-4 col-md-3 control-label">Product Details</label>
+	                        <div class="col-sm-8 col-md-7">
+	                          <%= f.text_area :description, class: "form-control", required: true, placeholder: ""%>
+	                        </div>
+	                      </div>
+	                    </div>
+	                    <div class="form-group">
+							<div class="text-center attendee-cent-s">
+								<button class="btn btn-default btn-green" type="submit">Submit</button>
+							</div>
+						</div>
+					</div>
+				<%end%>
+			</div>
+			</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#availed_sizes, #availed_colors").select2({
+      placeholder: "Select Sizes..",
+      width: "100%"
+    });
+    // type = $("#product_product_type").val();
+    // if(type == "accessories") {
+    //   $(".product-size").hide();
+    // }
+    // else {
+    //   $(".product-size").show();
+    // }
+    // $("#product_product_type").change(function(){
+    //   type = $("#product_product_type").val();
+    //   if(type == "accessories") {
+    //     $(".product-size").hide();
+    //   }
+    //   else {
+    //     $(".product-size").show();
+    //   }
+    // });
+  });
+</script>

@@ -1,0 +1,42 @@
+.productbox {
+    background-color:#ffffff;
+	padding:10px;
+	margin: 5px 5px 5px 5px;
+	width: 24%!important;
+	margin-bottom:10px;
+	-webkit-box-shadow: 0 8px 6px -6px  #999;
+	   -moz-box-shadow: 0 8px 6px -6px  #999;
+	        box-shadow: 0 8px 6px -6px #999;
+
+}
+
+.producttitle {
+    font-weight:bold;
+	padding:5px 0 5px 0;
+}
+
+.productprice {
+	border-top:1px solid #dadada;
+	padding-top:5px;
+}
+.quantity{
+	border-top:1px solid #dadada;
+	padding-top:5px;	
+}
+.pricetext {
+	font-weight:bold;
+	font-size:1.4em;
+}
+.center{
+width: 170px;
+  /*margin: 40px auto;*/
+  
+}
+.input-group {
+    margin-right: 5px!important;
+    margin-top: 0px!important;
+    margin-left: 5px!important;
+}
+.form-control.input-number{padding-left: 2px; margin-right: 17px;}
+.confirm-order{text-align: center;
+margin-top: 50px;}

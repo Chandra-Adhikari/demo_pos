@@ -1,0 +1,78 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1> Product Details</h1>
+
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+   <div class="box box-info">
+     <div class="text-right attendee-cent-s form-group">
+      <%#= link_to "Edit", edit_admin_fixture_path, :class => "btn btn-default btn-green" %>
+     </div>
+          <!-- /.box-header -->
+      <div class="box-body box-profile">
+          <div class="profile-box2">
+            <div class="box-body">
+              <table id="example2" class="table table-b@ordered table-hover">
+                <thead>
+                  <tr>
+                  
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price(Rs)</th>
+                    <th>Total(Rs)</th>
+                 </tr>
+                </thead>
+                <% @total_amount = 0 %>
+                <% @cart_products.each do |cart| %>
+                  <tbody>
+                    <tr class="even">
+                      <td><%= cart.quantity %> x <%= cart.product.name %></td>
+                      <td><%= cart.quantity %> </td>
+                      <td><%= cart.product.price %></td>
+                      <td><%= amount = (cart.quantity * cart.product.price.to_f) %></td> 
+                      <% @total_amount = @total_amount + amount%>             
+                    </tr>
+                  </tbody>
+                <%end%>
+                <tbody>
+                    <tr class="even">
+                      <td></td>
+                      <td></td>
+                      <td>Total Before Tax </td>
+                      <td><%= @total_amount  %></td>
+                    </tr>
+                    <tr class="even">
+                      <td></td>
+                      <td></td>
+                      <td>15% Service Charges </td>
+                      <td><%= @tax = (@total_amount*15/100) %> </td>
+                    </tr>
+                    <tr class="even">
+                    	<td></td>
+                      <td></td>
+                      <td>Total Amount </td>
+                      <td> <%= @total_amount + @tax %></td>
+                    </tr>
+                  </tbody>
+              </table>
+              <div class="confirm-order">
+            
+              	<%= link_to("Confirm", orders_path,method: :post,class: "btn btn-danger btn-sm ")%>              	
+              </div>
+          </div>
+        </div>
+      </div>
+      </div>
+          </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

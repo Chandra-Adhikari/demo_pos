@@ -1,0 +1,74 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1> Order Details</h1>
+
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+   <div class="box box-info">
+     <div class="text-right attendee-cent-s form-group">
+      <%#= link_to "Edit", edit_admin_fixture_path, :class => "btn btn-default btn-green" %>
+     </div>
+          <!-- /.box-header -->
+      <div class="box-body box-profile">
+          <div class="profile-box2">
+            <div class="box-body">
+              <table id="example2" class="table table-b@ordered table-hover">
+                <thead>
+                  <tr>
+                   <th>OrderId</th>
+                   <th>Place On</th>
+                    <th>Total Amount(Rs)</th>
+                 </tr>
+                </thead>
+                  <tbody>
+                    <tr class="even">
+                      <td><%= @order.id %></td>
+                      <td><%= @order.created_at.strftime("%d %B %Y") %></td>
+                      <td><%= number_with_precision(@order.total_amount, :precision => 2) %>
+                        <p class="payment-details">Product(s) Amount: <%= number_with_precision(@order.total_price, :precision => 2) %></p>
+                        <p class="payment-details">Service Charges 15% : <%= number_with_precision(@order.tax_amount, :precision => 2) %></p>
+                      </td>         
+                     
+                    </tr>
+                  </tbody>
+              </table>
+              <table id="example2" class="table table-b@ordered table-hover">
+                <thead>
+                  <tr>
+                   <th>Product Image</th>
+                   <th>Product Name</th>
+                    <th>Price(Rs)</th>
+                    <th>Quantity</th>
+                    <th>Total Amount(Rs)</th>
+                 </tr>
+                </thead>
+                <% @order.order_details.each do |detail| %>
+                  <tbody>
+                    <tr class="even">
+                      <td><%= detail.product.try(:product_images).present? ? image_tag(detail.product.try(:product_images).try(:first).try(:file_url),:size=> "70*80", :class => 'profile-ab') : image_tag("/1.png",:size=> "70*80", :class => 'profile-ab') %>
+                      </td>
+                      <td><%= truncate(detail.product.try(:name), omision: "...", length: 30) %></td>
+                      <td><%= detail.product.try(:price)%></td>
+                      <td><%= detail.quantity %></td>
+                      <td><%= detail.total_amount %></td>
+                    </tr>
+                  </tbody>
+                <%end%>
+              </table>
+          </div>
+        </div>
+      </div>
+      </div>
+          </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

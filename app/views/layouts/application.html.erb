@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DemoTest</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%#= javascript_include_tag :defaults, "nested_form" %>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+  <%#= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
+  <%#= favicon_link_tag '/favicon.png', :rel => 'shortcut icon' %>
+
+  <!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> -->
+
+</head>
+<%if current_user %>
+<body class="hold-transition skin-red sidebar-mini fixed">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+
+    <!-- <a class="sidebar-toggle menu-txt" id="id-sidebar-toggle" role="button" data-toggle="offcanvas" href="#">
+    <span class="sr-only">Toggle navigation</span>
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+
+    </a> -->
+    <div class="navbar-custom-menu">
+     <ul class="nav navbar-nav">
+     <li class="dropdown user user-menu ">
+        <a href="javascript:void(0)" class="dropdown-toggle menu-txt" data-toggle="dropdown">
+            <span class="hidden-xs"><%= '<i class="fa fa-shopping-cart" aria-hidden="true"></i>'.html_safe %></span>
+            <span class="cart_product_count"><%= current_user.cart_products.count > 0 ?current_user.cart_products.count : '' %></span>
+          </a>
+          <ul class="dropdown-menu">
+         
+            <!-- Menu Footer-->
+            <% if current_user.cart_products.present? %>
+            <% current_user.cart_products.limit(3).each do |cart| %>
+            <li class="user-footer">
+              <%= cart.quantity %> x <%= cart.product.name %>
+              <div class="pull-right">
+                <%= (cart.quantity * cart.product.price.to_f) %>
+              </div>
+            </li>
+            <%end%>
+            <%end%>
+            <%= link_to("View Details", cart_products_path)%>
+          </ul>
+      </li>
+    <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle menu-txt" data-toggle="dropdown">
+            <span class="hidden-xs"><%= current_user.email.present? ? current_user.email : "Admin" %></span>
+          </a>
+          <ul class="dropdown-menu">
+         
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              
+              <div class="pull-right">
+                <%= link_to "Sign out", session_path(id: current_user.id),:class=>"btn btn-default btn-flat", method: :delete %>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can bMerchandisee found in sidebar.less -->
+    <section class="sidebar">
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">          
+          <li class="treeview">
+            <%= link_to("Products", products_path)%>
+          </li>
+          <% if current_user.role.eql?("admin")%>
+          <li class="treeview">
+            <%= link_to("Tags", tags_path)%>
+            </li>
+          <%end%>
+          <li class="treeview">
+            <%= link_to("Orders", orders_path)%>
+          </li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  </div>
+
+<%end%>
+            <%#= render :partial => "layouts/flash" %>
+
+            <%= yield %>
+
+<%if current_user%>
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; <%= Time.current.strftime("%Y")%> <a href="https://www.google.com/" class="fans-link">DemoTest</a>.</strong> All rights
+    reserved.
+  </footer>
+<%end%>
+
+</body>
+</html>

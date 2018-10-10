@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dhzgmlrs5
+  api_key: '818818795426144'
+  api_secret: I47eNAVX-Ltri1XmdFJtTsM98nk
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: dhzgmlrs5
+  api_key: '818818795426144'
+  api_secret: I47eNAVX-Ltri1XmdFJtTsM98nk
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: dhzgmlrs5
+  api_key: '818818795426144'
+  api_secret: I47eNAVX-Ltri1XmdFJtTsM98nk
+  enhance_image_tag: true
+  static_image_support: false
