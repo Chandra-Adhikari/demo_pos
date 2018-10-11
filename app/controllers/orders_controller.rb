@@ -1,7 +1,11 @@
 class OrdersController < ApplicationController
   before_action :require_user
   def index
-    @orders = Order.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+  	if current_user.role.eql?('user')
+  		@orders = current_user.orders.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+  	else
+    	@orders = Order.order("created_at desc").paginate(:page => params[:page], :per_page => 10)
+    end
   end
 
   def create

@@ -50,7 +50,7 @@
                 <% @order.order_details.each do |detail| %>
                   <tbody>
                     <tr class="even">
-                      <td><%= detail.product.try(:product_images).present? ? image_tag(detail.product.try(:product_images).try(:first).try(:file_url),:size=> "70*80", :class => 'profile-ab') : image_tag("/1.png",:size=> "70*80", :class => 'profile-ab') %>
+                      <td><%= detail.product.try(:images).present? ? image_tag(detail.product.try(:images).try(:first).try(:file_url),:size=> "70*80", :class => 'profile-ab') : image_tag("/1.png",:size=> "70*80", :class => 'profile-ab') %>
                       </td>
                       <td><%= truncate(detail.product.try(:name), omision: "...", length: 30) %></td>
                       <td><%= detail.product.try(:price)%></td>
